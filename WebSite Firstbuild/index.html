@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Charles Richard O. Situ - F1 Motorsport & Paddock Telemetry Developer Portfolio | Information Technology Engineer & Full-Stack Developer at STI College Marikina.">
+  <meta name="keywords" content="Charles Richard Situ, F1 Developer, IT Student, STI College Marikina, Web Developer, Telemetry Portfolio, Java, Web Development">
+  <meta name="author" content="Charles Richard O. Situ">
+  <title>CHARLES RICHARD O. SITU // F1 PADDOCK TELEMETRY PORTFOLIO</title>
+  
+  <!-- F1 Typography: Orbitron, Rajdhani, Titillium Web, JetBrains Mono, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Titillium+Web:wght@600;700;900&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="f1-theme">
+
+  <!-- F1 Top Telemetry HUD & Track Sector Progress -->
+  <aside class="f1-telemetry-hud" id="f1-telemetry-hud" aria-label="F1 Race Telemetry Bar">
+    <div class="telemetry-hud-inner">
+      <div class="hud-left">
+        <span class="hud-status-dot"></span>
+        <span class="hud-label">TELEMETRY // LIVE</span>
+        <span class="hud-divider">|</span>
+        <span class="hud-drs-badge">DRS: ACTIVE</span>
+      </div>
+
+      <div class="hud-center">
+        <!-- Live Sector Track Map Indicator -->
+        <div class="sector-track-indicator" id="sector-track-indicator">
+          <span class="sector-node active" data-sector="1">S1: HERO</span>
+          <span class="sector-arrow">»</span>
+          <span class="sector-node" data-sector="2">S2: ABOUT</span>
+          <span class="sector-arrow">»</span>
+          <span class="sector-node" data-sector="3">S3: TECH STACK</span>
+          <span class="sector-arrow">»</span>
+          <span class="sector-node" data-sector="4">S4: GARAGE</span>
+          <span class="sector-arrow">»</span>
+          <span class="sector-node" data-sector="5">S5: CREDENTIALS</span>
+          <span class="sector-arrow">»</span>
+          <span class="sector-node" data-sector="6">S6: PIT WALL</span>
+        </div>
+      </div>
+
+      <div class="hud-right">
+        <span class="hud-lap-time" id="hud-live-clock">LAP 01 // 00:00:00</span>
+        <span class="hud-car-no">CAR #11</span>
+      </div>
+    </div>
+    <!-- Racing Red Top Progress Bar -->
+    <div class="f1-progress-bar-container">
+      <div class="f1-progress-bar" id="f1-scroll-progress"></div>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Container for interactive actions -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header / Pit Wall Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Charles Richard O. Situ Telemetry">
+        <span class="brand-monogram">CS</span>
+        <span class="brand-slashes">//</span>
+        <span class="brand-car-num">11</span>
+        <span class="brand-racing-stripe"></span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#hero" class="nav-link active"><span class="nav-sec-num">01</span> DRIVER</a></li>
+          <li class="nav-item"><a href="#about" class="nav-link"><span class="nav-sec-num">02</span> PROFILE</a></li>
+          <li class="nav-item"><a href="#skills" class="nav-link"><span class="nav-sec-num">03</span> ARSENAL</a></li>
+          <li class="nav-item"><a href="#projects" class="nav-link"><span class="nav-sec-num">04</span> GARAGE</a></li>
+          <li class="nav-item"><a href="#credentials" class="nav-link"><span class="nav-sec-num">05</span> CREDENTIALS</a></li>
+          <li class="nav-item"><a href="#contact" class="nav-link"><span class="nav-sec-num">06</span> PIT WALL</a></li>
+        </ul>
+      </nav>
+
+      <!-- Action Controls: Pit Lane Status & Mobile Toggle -->
+      <div class="nav-actions">
+        <div class="pit-lane-badge" title="Pit Lane Status: Open for Opportunities">
+          <span class="pit-lane-light"></span>
+          <span class="pit-lane-text">PIT LANE: OPEN</span>
+        </div>
+
+        <a href="#contact" class="btn btn-pit-radio" title="Open Team Radio Channel">
+          <span class="radio-pulse"></span>
+          <span>TEAM RADIO</span>
+        </a>
+
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="nav-menu">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         SECTOR 01: HERO & 3D INTERACTIVE DROPDOWN PADDOCK PASS
+         ==================================================================== -->
+    <section id="hero" class="section hero-section f1-hero-sector" data-sector="1">
+      <div class="f1-carbon-bg" aria-hidden="true"></div>
+      <div class="f1-telemetry-grid-bg" aria-hidden="true"></div>
+      
+      <!-- Top High-Speed Red Light Streak Divider -->
+      <div class="f1-speed-streak" aria-hidden="true"></div>
+
+      <div class="container hero-container">
+        
+        <!-- Left Column: Driver / Developer Intro -->
+        <div class="hero-content">
+          <div class="telemetry-badge">
+            <span class="telemetry-pulse-dot"></span>
+            <span class="telemetry-badge-code">// SECTOR 01: DRIVER PROFILE — ACTIVE</span>
+          </div>
+
+          <div class="hero-driver-number">
+            <span class="driver-racing-tag">FIA DRIVER #11</span>
+            <span class="driver-flag">🇵🇭 PHL</span>
+          </div>
+
+          <h1 class="hero-name">
+            CHARLES RICHARD <span class="text-racing-red">O. SITU</span>
+          </h1>
+
+          <div class="hero-title-wrapper">
+            <span class="f1-chevron">&gt;&gt;</span>
+            <span class="hero-title">IT STUDENT / WEB DEVELOPER</span>
+          </div>
+
+          <p class="hero-intro">
+            Fourth-year Bachelor of Science in Information Technology student at <strong class="text-cyan">STI College Marikina</strong> (Class of 2027). Building high-performance software, modern web architectures, secure networks, and robust database backends with F1-grade speed, precision, and technical reliability.
+          </p>
+
+          <!-- Core Action Buttons -->
+          <div class="hero-actions">
+            <!-- Primary Racing Red: Download CV / Telemetry -->
+            <a href="c:\Users\My PC\Downloads\ATS Resume - SITU.pdf" class="btn btn-racing-primary" id="btn-download-resume" download="Charles_Richard_Situ_Resume.pdf">
+              <span class="btn-skew-accent"></span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>DOWNLOAD TELEMETRY / CV</span>
+            </a>
+
+            <!-- Outlined Buttons -->
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-telemetry-outline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              </svg>
+              <span>GITHUB</span>
+            </a>
+
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="btn btn-telemetry-outline">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LINKEDIN</span>
+            </a>
+
+            <a href="#contact" class="btn btn-telemetry-outline text-racing-red">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>CONTACT PIT WALL</span>
+            </a>
+          </div>
+
+          <!-- Paddock Telemetry Stats Strip -->
+          <div class="hero-telemetry-stats">
+            <div class="telemetry-stat-card">
+              <span class="telemetry-stat-num text-cyan">4TH</span>
+              <span class="telemetry-stat-title">YEAR BSIT // STI MARIKINA</span>
+            </div>
+            <div class="telemetry-stat-card">
+              <span class="telemetry-stat-num text-racing-red">100%</span>
+              <span class="telemetry-stat-title">COMMITMENT // ZERO COMPROMISE</span>
+            </div>
+            <div class="telemetry-stat-card">
+              <span class="telemetry-stat-num text-amber">04</span>
+              <span class="telemetry-stat-title">VERIFIED CERTIFICATIONS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Dropdown 3D F1 Paddock Pass (Lanyard ID) -->
+        <div class="hero-paddock-pass-wrapper" id="paddock-pass-rig">
+          <!-- The Woven Black Lanyard Ribbon clipped to viewport top -->
+          <div class="lanyard-ribbon" id="lanyard-ribbon">
+            <div class="lanyard-texture">
+              <span class="lanyard-text">F1 PADDOCK // DEV ACCESS 2026 // FIA CREDENTIAL</span>
+            </div>
+            <div class="lanyard-clip-hook">
+              <div class="clip-metal"></div>
+              <div class="clip-hole"></div>
+            </div>
+          </div>
+
+          <!-- Physical 3D VIP F1 Paddock Pass Card -->
+          <div class="paddock-pass-card" id="paddock-pass-card" title="Interactive 3D F1 VIP Pass — Move cursor to tilt card">
+            <!-- Holographic Sheen/Glare Overlay -->
+            <div class="card-holographic-glare" id="card-hologram"></div>
+            
+            <!-- Carbon Fiber Header -->
+            <div class="pass-header">
+              <div class="pass-fia-branding">
+                <span class="fia-badge">FIA</span>
+                <span class="pass-access-tier">PADDOCK CLUB // ALL AREAS</span>
+              </div>
+              <div class="pass-car-number">#11</div>
+            </div>
+
+            <!-- VIP Portrait Frame with Carbon Texture & Racing Accents -->
+            <div class="pass-photo-container">
+              <div class="pass-photo-frame">
+                <img 
+                  src="c:\Users\My PC\Downloads\F1 id.jpg" 
+                  alt="Charles Richard O. Situ - Official F1 Developer Credential" 
+                  class="pass-photo-img" 
+                  id="paddock-driver-photo"
+                  onerror="this.src='assets/download (4).jpg';"
+                >
+                <div class="pass-photo-corner tl"></div>
+                <div class="pass-photo-corner tr"></div>
+                <div class="pass-photo-corner bl"></div>
+                <div class="pass-photo-corner br"></div>
+              </div>
+
+              <!-- Driver Car Flag Badge -->
+              <div class="pass-driver-flag-badge">
+                <span class="flag-dot"></span>
+                <span>STI RACING DEPT.</span>
+              </div>
+            </div>
+
+            <!-- Credential Details -->
+            <div class="pass-details">
+              <span class="pass-label">OFFICIAL CREDENTIAL HOLDER</span>
+              <h3 class="pass-driver-name">CHARLES RICHARD O. SITU</h3>
+              <p class="pass-driver-title">IT STUDENT // WEB DEVELOPER</p>
+              <p class="pass-driver-org">STI COLLEGE MARIKINA</p>
+            </div>
+
+            <!-- Card Telemetry Footer & Security Barcode -->
+            <div class="pass-footer">
+              <div class="pass-security-seal">
+                <div class="hologram-seal-inner">
+                  <span class="seal-star">★</span>
+                  <span class="seal-text">VERIFIED</span>
+                </div>
+              </div>
+
+              <div class="pass-barcode-wrap">
+                <div class="f1-barcode"></div>
+                <span class="barcode-serial">FIA-SITU-2027-DEV27</span>
+              </div>
+
+              <div class="pass-season-tag">SEASON 2026–2027</div>
+            </div>
+
+            <!-- Interactive Pass Hint -->
+            <div class="pass-interactive-hint">
+              <span class="hint-icon">⚙</span>
+              <span>3D TELEMETRY TILT</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTOR 02: ABOUT & TELEMETRY STATS
+         ==================================================================== -->
+    <section id="about" class="section about-section f1-sector" data-sector="2">
+      <!-- High-speed red/cyan streak divider -->
+      <div class="f1-sector-divider" aria-hidden="true">
+        <span class="divider-label">SECTOR 02 // PIT WALL TELEMETRY STATS</span>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// DRIVER TELEMETRY</span>
+          <h2 class="section-title">ABOUT &amp; ACADEMIC STANDING</h2>
+          <div class="section-line"></div>
+        </div>
+
+        <div class="about-grid">
+          <!-- Main Pit-Wall Telemetry Card -->
+          <div class="about-main-card f1-card">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+
+            <div class="about-card-badge">
+              <span class="telemetry-flag">🏁</span>
+              <span>ENGINEER DOSSIER // STI MARIKINA</span>
+            </div>
+
+            <p class="about-statement">
+              "A motivated fourth-year Bachelor of Science in Information Technology student at <strong class="text-racing-red">STI College Marikina</strong> with knowledge of programming, web development, computer troubleshooting, and basic network administration. I am responsible, adaptable, and willing to learn new technologies. My goal is to build a high-performance career in the IT industry and apply my technical knowledge in a professional working environment."
+            </p>
+
+            <div class="about-highlights-grid">
+              <div class="highlight-item f1-highlight">
+                <div class="highlight-icon">
+                  <span class="hud-glyph">01</span>
+                </div>
+                <div>
+                  <h3 class="highlight-title">Current Standing</h3>
+                  <p class="highlight-desc">4th Year BSIT Student at STI College Marikina (Expected Aug 2027)</p>
+                </div>
+              </div>
+
+              <div class="highlight-item f1-highlight">
+                <div class="highlight-icon">
+                  <span class="hud-glyph">02</span>
+                </div>
+                <div>
+                  <h3 class="highlight-title">Foundation &amp; SHS Track</h3>
+                  <p class="highlight-desc">TVL Computer Programming at San Mateo Senior High School</p>
+                </div>
+              </div>
+
+              <div class="highlight-item f1-highlight">
+                <div class="highlight-icon">
+                  <span class="hud-glyph">03</span>
+                </div>
+                <div>
+                  <h3 class="highlight-title">Workplace Precision</h3>
+                  <p class="highlight-desc">Responsible, adaptable, high attention to detail &amp; rapid problem solving</p>
+                </div>
+              </div>
+
+              <div class="highlight-item f1-highlight">
+                <div class="highlight-icon">
+                  <span class="hud-glyph">04</span>
+                </div>
+                <div>
+                  <h3 class="highlight-title">Pit Wall Objective</h3>
+                  <p class="highlight-desc">Apply full-stack engineering &amp; infrastructure skills in professional tech teams</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTOR 03: TECHNICAL ARSENAL (TIRE COMPOUNDS & RPM GAUGES)
+         ==================================================================== -->
+    <section id="skills" class="section skills-section f1-sector" data-sector="3">
+      <!-- High-speed red/cyan streak divider -->
+      <div class="f1-sector-divider" aria-hidden="true">
+        <span class="divider-label">SECTOR 03 // TECHNICAL ARSENAL &amp; TELEMETRY</span>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// RACE SETUP &amp; TELEMETRY</span>
+          <h2 class="section-title">TECHNICAL ARSENAL</h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">Mapped into F1 tire-compound telemetry for Frontend, Systems &amp; Defensive Security</p>
+        </div>
+
+        <div class="skills-grid f1-skills-grid">
+          
+          <!-- Compound 1: Soft Compound (High Velocity / Frontend & Web) -->
+          <div class="skill-card f1-card compound-soft">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            
+            <div class="skill-card-header">
+              <div class="compound-tire-indicator soft">
+                <span class="tire-letter">S</span>
+              </div>
+              <div class="skill-card-meta">
+                <span class="compound-tag text-racing-red">SOFT COMPOUND // MAXIMUM VELOCITY</span>
+                <h3 class="skill-card-title">Software &amp; Web Development</h3>
+              </div>
+            </div>
+
+            <ul class="skills-list">
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot soft"></span>
+                <span class="skill-name">Java Programming</span>
+                <span class="skill-telemetry-tag">CORE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot soft"></span>
+                <span class="skill-name">HTML5 &amp; Modern Semantic Markup</span>
+                <span class="skill-telemetry-tag">FRONTEND</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot soft"></span>
+                <span class="skill-name">CSS3, Grid, Flexbox &amp; Responsive UI</span>
+                <span class="skill-telemetry-tag">STYLING</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot soft"></span>
+                <span class="skill-name">Vanilla JavaScript &amp; DOM Engineering</span>
+                <span class="skill-telemetry-tag">ENGINE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot soft"></span>
+                <span class="skill-name">Android Studio (Java/Kotlin &amp; XML)</span>
+                <span class="skill-telemetry-tag">MOBILE</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Compound 2: Medium Compound (Core Power / Backend & Infrastructure) -->
+          <div class="skill-card f1-card compound-medium">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+
+            <div class="skill-card-header">
+              <div class="compound-tire-indicator medium">
+                <span class="tire-letter">M</span>
+              </div>
+              <div class="skill-card-meta">
+                <span class="compound-tag text-amber">MEDIUM COMPOUND // SUSTAINED RELIABILITY</span>
+                <h3 class="skill-card-title">Systems &amp; Infrastructure</h3>
+              </div>
+            </div>
+
+            <ul class="skills-list">
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot medium"></span>
+                <span class="skill-name">Database Management (SQL &amp; Relational)</span>
+                <span class="skill-telemetry-tag">STORAGE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot medium"></span>
+                <span class="skill-name">Computer Troubleshooting &amp; Diagnostics</span>
+                <span class="skill-telemetry-tag">HARDWARE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot medium"></span>
+                <span class="skill-name">Operating System Installation &amp; Config</span>
+                <span class="skill-telemetry-tag">SYSTEMS</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot medium"></span>
+                <span class="skill-name">Software Installation &amp; Configuration</span>
+                <span class="skill-telemetry-tag">DEV-OPS</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot medium"></span>
+                <span class="skill-name">UI / UX Prototyping &amp; Design</span>
+                <span class="skill-telemetry-tag">INTERFACE</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Compound 3: Hard Compound (Endurance & Defensive / Security) -->
+          <div class="skill-card f1-card compound-hard">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+
+            <div class="skill-card-header">
+              <div class="compound-tire-indicator hard">
+                <span class="tire-letter">H</span>
+              </div>
+              <div class="skill-card-meta">
+                <span class="compound-tag text-cyan">HARD COMPOUND // MAXIMUM DEFENSE</span>
+                <h3 class="skill-card-title">Security &amp; Enterprise Systems</h3>
+              </div>
+            </div>
+
+            <ul class="skills-list">
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot hard"></span>
+                <span class="skill-name">Basic Network Administration</span>
+                <span class="skill-telemetry-tag">NETWORK</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot hard"></span>
+                <span class="skill-name">Cybersecurity Fundamentals</span>
+                <span class="skill-telemetry-tag">SECURITY</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot hard"></span>
+                <span class="skill-name">Ethical Hacking Fundamentals</span>
+                <span class="skill-telemetry-tag">DEFENSE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot hard"></span>
+                <span class="skill-name">SAP Enterprise Architecture</span>
+                <span class="skill-telemetry-tag">ENTERPRISE</span>
+              </li>
+              <li class="skill-item f1-skill-item">
+                <span class="rpm-gauge-dot hard"></span>
+                <span class="skill-name">Network Topologies &amp; Routing Protocols</span>
+                <span class="skill-telemetry-tag">INFRA</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTOR 04: GARAGE / BUILDS (FEATURED PROJECTS)
+         ==================================================================== -->
+    <section id="projects" class="section projects-section f1-sector" data-sector="4">
+      <div class="f1-sector-divider" aria-hidden="true">
+        <span class="divider-label">SECTOR 04 // PADDOCK GARAGE &amp; BUILDS</span>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// PROVEN MACHINES</span>
+          <h2 class="section-title">GARAGE &amp; BUILDS</h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">Real-world software architectures and systems engineered for high reliability</p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 01: Real-Time Personnel Availability Monitoring System (Capstone) -->
+          <div class="project-card f1-card" data-project="availability">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            
+            <div class="project-header">
+              <div class="project-telemetry-status">
+                <span class="telemetry-status-light live"></span>
+                <span class="status-code">CHASSIS 01 // CAPSTONE BUILD</span>
+              </div>
+              <span class="project-year-badge">2026 // LIVE</span>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">Real-Time Personnel Availability Monitoring System</h3>
+              <p class="project-spec-summary">
+                A mission-critical enterprise web platform featuring fingerprint biometric authentication, offline-resilient attendance capture with background database synchronization, and AI-driven predictive location modeling.
+              </p>
+
+              <div class="project-specs-table">
+                <div class="spec-row">
+                  <span class="spec-label">Security:</span>
+                  <span class="spec-val">Biometric Fingerprint Hardware Sync</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Architecture:</span>
+                  <span class="spec-val">Offline-first local caching + Cloud Sync</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Analytics:</span>
+                  <span class="spec-val">AI-Driven Predictive Location Modeling</span>
+                </div>
+              </div>
+
+              <div class="project-tags">
+                <span class="f1-pill">Web Architecture</span>
+                <span class="f1-pill">Biometrics</span>
+                <span class="f1-pill">Database Sync</span>
+                <span class="f1-pill">Predictive AI</span>
+                <span class="f1-pill">Security</span>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <button type="button" class="btn btn-xs btn-telemetry-outline inspect-project-btn" data-project-title="Real-Time Personnel Availability Monitoring System" data-project-desc="Web-based enterprise solution designed for military, institutional, or enterprise facilities. Integrates physical biometric hardware, offline queue persistence, and automated syncing to eliminate attendance spoofing and ensure 100% personnel accountability.">
+                <span>INSPECT TELEMETRY</span>
+              </button>
+              <span class="project-chassis-id">BUILD: STIM-CAP-2026</span>
+            </div>
+          </div>
+
+          <!-- Project 02: Store Inventory Management App (MYBANK) -->
+          <div class="project-card f1-card" data-project="inventory">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+
+            <div class="project-header">
+              <div class="project-telemetry-status">
+                <span class="telemetry-status-light live"></span>
+                <span class="status-code">CHASSIS 02 // MOBILE BUILD</span>
+              </div>
+              <span class="project-year-badge">2025 // STABLE</span>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">Store Inventory Management App (MYBANK)</h3>
+              <p class="project-spec-summary">
+                A streamlined mobile inventory tracking application built with responsive card-based architecture, real-time item count monitoring, and zero-latency stock ledger updates.
+              </p>
+
+              <div class="project-specs-table">
+                <div class="spec-row">
+                  <span class="spec-label">Platform:</span>
+                  <span class="spec-val">Android (Java / XML UI Engine)</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Storage:</span>
+                  <span class="spec-val">Relational Local Ledger &amp; SQLite</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Telemetry:</span>
+                  <span class="spec-val">Real-time Stock Depletion Alerts</span>
+                </div>
+              </div>
+
+              <div class="project-tags">
+                <span class="f1-pill">Android Studio</span>
+                <span class="f1-pill">Java</span>
+                <span class="f1-pill">Inventory Logic</span>
+                <span class="f1-pill">CRUD Architecture</span>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <button type="button" class="btn btn-xs btn-telemetry-outline inspect-project-btn" data-project-title="Store Inventory Management App (MYBANK)" data-project-desc="High-efficiency store management solution that automates stock intake, item barcode references, depletion logs, and ledger reconciliations for commercial store operations.">
+                <span>INSPECT TELEMETRY</span>
+              </button>
+              <span class="project-chassis-id">BUILD: MOB-INV-2025</span>
+            </div>
+          </div>
+
+          <!-- Project 03: F1 Motorsport Telemetry Portfolio -->
+          <div class="project-card f1-card" data-project="portfolio">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+
+            <div class="project-header">
+              <div class="project-telemetry-status">
+                <span class="telemetry-status-light live"></span>
+                <span class="status-code">CHASSIS 03 // WEB TELEMETRY</span>
+              </div>
+              <span class="project-year-badge">2026 // CURRENT</span>
+            </div>
+
+            <div class="project-body">
+              <h3 class="project-title">Personal F1 Telemetry Portfolio &amp; Paddock Pass</h3>
+              <p class="project-spec-summary">
+                High-performance developer portfolio featuring physics-driven 3D dropdown F1 Paddock Pass with parallax tilt, sector-based telemetry navigation, and live-reload development architecture.
+              </p>
+
+              <div class="project-specs-table">
+                <div class="spec-row">
+                  <span class="spec-label">Physics:</span>
+                  <span class="spec-val">GPU-accelerated 3D Transform Matrices</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Styling:</span>
+                  <span class="spec-val">Carbon-fiber HUD &amp; Sector Animations</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Engine:</span>
+                  <span class="spec-val">100% Vanilla JS &amp; Modern CSS3</span>
+                </div>
+              </div>
+
+              <div class="project-tags">
+                <span class="f1-pill">HTML5</span>
+                <span class="f1-pill">CSS3 Carbon</span>
+                <span class="f1-pill">3D Tilt Physics</span>
+                <span class="f1-pill">F1 Telemetry</span>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <button type="button" class="btn btn-xs btn-telemetry-outline inspect-project-btn" data-project-title="Personal F1 Telemetry Portfolio" data-project-desc="Custom-engineered digital resume designed for employers and technical recruiters, built with zero heavyweight frameworks for instant 60fps load speeds and maximum visual impact.">
+                <span>INSPECT TELEMETRY</span>
+              </button>
+              <span class="project-chassis-id">BUILD: SITU-F1-LIVE</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTOR 05: CREDENTIALS & EXPERIENCE (PIT-LANE RACE LINE)
+         ==================================================================== -->
+    <section id="credentials" class="section credentials-section f1-sector" data-sector="5">
+      <div class="f1-sector-divider" aria-hidden="true">
+        <span class="divider-label">SECTOR 05 // VERIFIED CREDENTIALS &amp; PIT-LANE EXPERIENCE</span>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// RACE ACCREDITATION</span>
+          <h2 class="section-title">CERTIFICATIONS &amp; EXPERIENCE</h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">Verified technical milestones and hands-on enterprise systems experience</p>
+        </div>
+
+        <!-- 4 F1 Pit-Board Certification Cards -->
+        <div class="certifications-grid f1-cert-grid">
+
+          <!-- Certification 1: Java Fundamentals -->
+          <div class="cert-card f1-card" data-cert-id="java">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            <div class="cert-card-media f1-media">
+              <div class="cert-img-placeholder" id="cert-placeholder-java">
+                <img 
+                  src="assets/cert-java.jpg" 
+                  alt="Java Fundamentals Certification" 
+                  class="cert-img" 
+                  id="cert-img-java"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="cert-svg-fallback f1-fallback">
+                  <span class="f1-tire-badge">JAVA</span>
+                  <span class="fallback-code">VERIFIED // CERT-01</span>
+                </div>
+              </div>
+              <div class="cert-card-icon-badge">
+                <span class="f1-badge-number">#01</span>
+              </div>
+            </div>
+            <div class="cert-card-content">
+              <span class="cert-track-tag text-racing-red">SOFTWARE ARCHITECTURE</span>
+              <h3 class="cert-title">Java Fundamentals Certification</h3>
+              <p class="cert-meta">Verified Technical Credential</p>
+              
+              <div class="cert-button-group">
+                <button type="button" class="btn btn-cert view-cert-btn" data-cert-id="java" data-cert-title="Java Fundamentals Certification" data-cert-src="assets/cert-java.jpg" data-cert-category="Software Development">
+                  <span>VIEW</span>
+                </button>
+                <button type="button" class="btn btn-cert btn-download-cert" data-cert-id="java" data-cert-title="Java Fundamentals Certification" data-cert-src="assets/cert-java.jpg">
+                  <span>DOWNLOAD</span>
+                </button>
+                <label class="btn btn-cert btn-upload-cert">
+                  <span>UPLOAD</span>
+                  <input type="file" accept="image/*" class="sr-only cert-file-input" data-cert-id="java" data-cert-title="Java Fundamentals Certification">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certification 2: SAP Certification -->
+          <div class="cert-card f1-card" data-cert-id="sap">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            <div class="cert-card-media f1-media">
+              <div class="cert-img-placeholder" id="cert-placeholder-sap">
+                <img 
+                  src="assets/cert-sap.jpg" 
+                  alt="SAP Certification" 
+                  class="cert-img" 
+                  id="cert-img-sap"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="cert-svg-fallback f1-fallback">
+                  <span class="f1-tire-badge">SAP</span>
+                  <span class="fallback-code">VERIFIED // CERT-02</span>
+                </div>
+              </div>
+              <div class="cert-card-icon-badge">
+                <span class="f1-badge-number">#02</span>
+              </div>
+            </div>
+            <div class="cert-card-content">
+              <span class="cert-track-tag text-amber">ENTERPRISE SYSTEMS</span>
+              <h3 class="cert-title">SAP Certification</h3>
+              <p class="cert-meta">Verified Enterprise Systems Credential</p>
+              
+              <div class="cert-button-group">
+                <button type="button" class="btn btn-cert view-cert-btn" data-cert-id="sap" data-cert-title="SAP Certification" data-cert-src="assets/cert-sap.jpg" data-cert-category="Enterprise Software">
+                  <span>VIEW</span>
+                </button>
+                <button type="button" class="btn btn-cert btn-download-cert" data-cert-id="sap" data-cert-title="SAP Certification" data-cert-src="assets/cert-sap.jpg">
+                  <span>DOWNLOAD</span>
+                </button>
+                <label class="btn btn-cert btn-upload-cert">
+                  <span>UPLOAD</span>
+                  <input type="file" accept="image/*" class="sr-only cert-file-input" data-cert-id="sap" data-cert-title="SAP Certification">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certification 3: Ethical Hacking Certification -->
+          <div class="cert-card f1-card" data-cert-id="ethical-hacking">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            <div class="cert-card-media f1-media">
+              <div class="cert-img-placeholder" id="cert-placeholder-ethical-hacking">
+                <img 
+                  src="assets/cert-ethical-hacking.jpg" 
+                  alt="Ethical Hacking Certification" 
+                  class="cert-img" 
+                  id="cert-img-ethical-hacking"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="cert-svg-fallback f1-fallback">
+                  <span class="f1-tire-badge">SEC</span>
+                  <span class="fallback-code">VERIFIED // CERT-03</span>
+                </div>
+              </div>
+              <div class="cert-card-icon-badge">
+                <span class="f1-badge-number">#03</span>
+              </div>
+            </div>
+            <div class="cert-card-content">
+              <span class="cert-track-tag text-cyan">DEFENSIVE SECURITY</span>
+              <h3 class="cert-title">Ethical Hacking Certification</h3>
+              <p class="cert-meta">Verified Cybersecurity Credential</p>
+              
+              <div class="cert-button-group">
+                <button type="button" class="btn btn-cert view-cert-btn" data-cert-id="ethical-hacking" data-cert-title="Ethical Hacking Certification" data-cert-src="assets/cert-ethical-hacking.jpg" data-cert-category="Cybersecurity">
+                  <span>VIEW</span>
+                </button>
+                <button type="button" class="btn btn-cert btn-download-cert" data-cert-id="ethical-hacking" data-cert-title="Ethical Hacking Certification" data-cert-src="assets/cert-ethical-hacking.jpg">
+                  <span>DOWNLOAD</span>
+                </button>
+                <label class="btn btn-cert btn-upload-cert">
+                  <span>UPLOAD</span>
+                  <input type="file" accept="image/*" class="sr-only cert-file-input" data-cert-id="ethical-hacking" data-cert-title="Ethical Hacking Certification">
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certification 4: Introduction to Cybersecurity Certification -->
+          <div class="cert-card f1-card" data-cert-id="cybersecurity">
+            <div class="f1-card-accent-bracket top-left"></div>
+            <div class="f1-card-accent-bracket bottom-right"></div>
+            <div class="cert-card-media f1-media">
+              <div class="cert-img-placeholder" id="cert-placeholder-cybersecurity">
+                <img 
+                  src="assets/cert-cybersecurity.jpg" 
+                  alt="Introduction to Cybersecurity Certification" 
+                  class="cert-img" 
+                  id="cert-img-cybersecurity"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+                <div class="cert-svg-fallback f1-fallback">
+                  <span class="f1-tire-badge">CYBER</span>
+                  <span class="fallback-code">VERIFIED // CERT-04</span>
+                </div>
+              </div>
+              <div class="cert-card-icon-badge">
+                <span class="f1-badge-number">#04</span>
+              </div>
+            </div>
+            <div class="cert-card-content">
+              <span class="cert-track-tag text-racing-red">THREAT MITIGATION</span>
+              <h3 class="cert-title">Introduction to Cybersecurity</h3>
+              <p class="cert-meta">Verified Information Security Credential</p>
+              
+              <div class="cert-button-group">
+                <button type="button" class="btn btn-cert view-cert-btn" data-cert-id="cybersecurity" data-cert-title="Introduction to Cybersecurity Certification" data-cert-src="assets/cert-cybersecurity.jpg" data-cert-category="Cybersecurity &amp; IT">
+                  <span>VIEW</span>
+                </button>
+                <button type="button" class="btn btn-cert btn-download-cert" data-cert-id="cybersecurity" data-cert-title="Introduction to Cybersecurity Certification" data-cert-src="assets/cert-cybersecurity.jpg">
+                  <span>DOWNLOAD</span>
+                </button>
+                <label class="btn btn-cert btn-upload-cert">
+                  <span>UPLOAD</span>
+                  <input type="file" accept="image/*" class="sr-only cert-file-input" data-cert-id="cybersecurity" data-cert-title="Introduction to Cybersecurity Certification">
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Vertical Pit-Lane Race Line Timeline for Education & Experience -->
+        <div class="f1-timeline-wrapper">
+          <div class="f1-race-line" id="f1-race-line"></div>
+
+          <!-- Timeline 01: STI College Marikina -->
+          <div class="timeline-item f1-timeline-node">
+            <div class="timeline-marker">
+              <span class="f1-pit-dot"></span>
+            </div>
+            <div class="timeline-content f1-card">
+              <div class="timeline-header">
+                <span class="timeline-period text-racing-red">SEPTEMBER 2023 – AUGUST 2027 (EXPECTED)</span>
+                <span class="f1-lap-badge">TERTIARY DEGREE</span>
+              </div>
+              <h3 class="timeline-degree">Bachelor of Science in Information Technology</h3>
+              <h4 class="timeline-school text-cyan">STI College Marikina</h4>
+              <div class="coursework-box">
+                <span class="coursework-label">Core Technical Coursework:</span>
+                <div class="coursework-tags">
+                  <span class="f1-pill">Java Programming</span>
+                  <span class="f1-pill">Web Development</span>
+                  <span class="f1-pill">Database Management</span>
+                  <span class="f1-pill">Computer Networking</span>
+                  <span class="f1-pill">Operating Systems</span>
+                  <span class="f1-pill">Cybersecurity</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline 02: San Mateo Senior High School -->
+          <div class="timeline-item f1-timeline-node">
+            <div class="timeline-marker">
+              <span class="f1-pit-dot"></span>
+            </div>
+            <div class="timeline-content f1-card">
+              <div class="timeline-header">
+                <span class="timeline-period text-amber">JULY 2021 – JULY 2023</span>
+                <span class="f1-lap-badge">SENIOR HIGH SCHOOL</span>
+              </div>
+              <h3 class="timeline-degree">Senior High School – TVL (Computer Programming)</h3>
+              <h4 class="timeline-school text-cyan">San Mateo Senior High School</h4>
+              <div class="coursework-box">
+                <span class="coursework-label">Coursework Completed:</span>
+                <div class="coursework-tags">
+                  <span class="f1-pill">Computer Programming</span>
+                  <span class="f1-pill">HTML &amp; CSS</span>
+                  <span class="f1-pill">Programming Logic</span>
+                  <span class="f1-pill">Web Development</span>
+                  <span class="f1-pill">Computer Networking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline 03: Printing Shop Internship -->
+          <div class="timeline-item f1-timeline-node">
+            <div class="timeline-marker">
+              <span class="f1-pit-dot"></span>
+            </div>
+            <div class="timeline-content f1-card">
+              <div class="timeline-header">
+                <span class="timeline-period text-cyan">FEBRUARY 28, 2022 – MARCH 13, 2022</span>
+                <span class="f1-lap-badge">PIT CREW INTERNSHIP</span>
+              </div>
+              <h3 class="timeline-degree">Printing Shop Intern</h3>
+              <h4 class="timeline-school">Daily Business &amp; Technical Operations</h4>
+              <p class="timeline-desc">
+                Completed an internship at a printing shop, gaining exposure to a professional working environment, equipment calibration, and daily business operations.
+              </p>
+              <div class="coursework-box">
+                <span class="coursework-label">Skills Developed:</span>
+                <div class="coursework-tags">
+                  <span class="f1-pill">Workplace Communication</span>
+                  <span class="f1-pill">Teamwork</span>
+                  <span class="f1-pill">Time Management</span>
+                  <span class="f1-pill">Attention to Detail</span>
+                  <span class="f1-pill">Adaptability</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         SECTOR 06: CONTACT (TEAM RADIO / PIT WALL CONSOLE)
+         ==================================================================== -->
+    <section id="contact" class="section contact-section f1-sector" data-sector="6">
+      <div class="f1-sector-divider" aria-hidden="true">
+        <span class="divider-label">SECTOR 06 // PIT WALL &amp; TEAM RADIO CONSOLE</span>
+      </div>
+
+      <div class="container">
+        
+        <!-- F1 5-Red-Lights Starting Gantry (Lights up sequentially on scroll) -->
+        <div class="f1-gantry-wrapper" id="f1-gantry">
+          <div class="gantry-title">// PIT WALL TRANSMISSION // LIGHTS OUT RACING</div>
+          <div class="gantry-lights-bar">
+            <div class="gantry-light" id="glight-1"><div class="lamp"></div></div>
+            <div class="gantry-light" id="glight-2"><div class="lamp"></div></div>
+            <div class="gantry-light" id="glight-3"><div class="lamp"></div></div>
+            <div class="gantry-light" id="glight-4"><div class="lamp"></div></div>
+            <div class="gantry-light" id="glight-5"><div class="lamp"></div></div>
+          </div>
+          <div class="gantry-status-text" id="gantry-status">AND IT'S LIGHTS OUT AND AWAY WE GO!</div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-tag">// FREQ: 442.7 MHz // DRIVER-PIT</span>
+          <h2 class="section-title">PIT WALL TRANSMISSION</h2>
+          <div class="section-line"></div>
+          <p class="section-subtitle">Connect directly with Charles Richard O. Situ for internships, roles &amp; technical projects</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Contact Info Column: Driver Paddock Credentials -->
+          <div class="contact-info-column">
+            
+            <div class="contact-card f1-card">
+              <div class="contact-card-icon f1-icon">
+                <span class="icon-glyph">PILOT</span>
+              </div>
+              <div class="contact-card-details">
+                <span class="contact-card-label">DRIVER / ENGINEER</span>
+                <span class="contact-card-value">Charles Richard O. Situ</span>
+                <span class="contact-card-note">Bachelor of Science in Information Technology</span>
+              </div>
+            </div>
+
+            <div class="contact-card f1-card">
+              <div class="contact-card-icon f1-icon">
+                <span class="icon-glyph">MAIL</span>
+              </div>
+              <div class="contact-card-details">
+                <span class="contact-card-label">OFFICIAL TEAM EMAIL</span>
+                <a href="mailto:charlessitu2@gmail.com" class="contact-card-value link-value">charlessitu2@gmail.com</a>
+                <div class="contact-card-actions">
+                  <a href="mailto:charlessitu2@gmail.com" class="btn btn-xs btn-racing-primary">
+                    <span>SEND EMAIL</span>
+                  </a>
+                  <button type="button" class="btn btn-xs btn-telemetry-outline copy-btn" data-copy="charlessitu2@gmail.com">
+                    <span>COPY EMAIL</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card f1-card">
+              <div class="contact-card-icon f1-icon">
+                <span class="icon-glyph">TEL</span>
+              </div>
+              <div class="contact-card-details">
+                <span class="contact-card-label">PIT WALL TELEPHONE</span>
+                <a href="tel:09617204369" class="contact-card-value link-value">0961 720 4369</a>
+                <div class="contact-card-actions">
+                  <a href="tel:09617204369" class="btn btn-xs btn-racing-primary">
+                    <span>CALL DIRECT</span>
+                  </a>
+                  <button type="button" class="btn btn-xs btn-telemetry-outline copy-btn" data-copy="09617204369">
+                    <span>COPY PHONE</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-card f1-card">
+              <div class="contact-card-icon f1-icon">
+                <span class="icon-glyph">BASE</span>
+              </div>
+              <div class="contact-card-details">
+                <span class="contact-card-label">PADDOCK LOCATION</span>
+                <span class="contact-card-value">36 Daang Tubo St., Guitnang Bayan 1, San Mateo, Rizal</span>
+                <span class="contact-card-note">Philippines</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Team Radio Console (Message Form) -->
+          <div class="contact-message-column">
+            <div class="message-card f1-card">
+              <div class="f1-card-accent-bracket top-left"></div>
+              <div class="f1-card-accent-bracket bottom-right"></div>
+
+              <div class="message-card-header">
+                <div class="radio-header-strip">
+                  <span class="radio-beacon"></span>
+                  <span class="radio-freq">TEAM RADIO // PIT-CHANNEL 01</span>
+                </div>
+                <h3 class="message-card-title">SEND TRANSMISSION TO PIT WALL</h3>
+                <p class="message-card-subtitle">Dispatch an encoded transmission directly to Charles's mailbox.</p>
+              </div>
+
+              <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                  <label for="sender-name" class="form-label">// SENDER CALLSIGN / RECRUITER NAME</label>
+                  <input type="text" id="sender-name" class="form-control f1-input" placeholder="Team Principal / Company Name" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-email" class="form-label">// RETURN FREQUENCY / EMAIL</label>
+                  <input type="email" id="sender-email" class="form-control f1-input" placeholder="recruiter@team.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="message-subject" class="form-label">// TRANSMISSION SUBJECT</label>
+                  <input type="text" id="message-subject" class="form-control f1-input" value="Opportunity Inquiry // Charles Richard O. Situ" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="sender-message" class="form-label">// TELEMETRY BRIEF / MESSAGE</label>
+                  <textarea id="sender-message" rows="4" class="form-control f1-input" placeholder="Hello Charles, we reviewed your telemetry and portfolio and would like to schedule an interview..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-racing-primary btn-block">
+                    <span class="btn-skew-accent"></span>
+                    <span>TRANSMIT OVER TEAM RADIO</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Certificate Modal / Lightbox -->
+  <div id="cert-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-dialog f1-card">
+      <div class="f1-card-accent-bracket top-left"></div>
+      <div class="f1-card-accent-bracket bottom-right"></div>
+
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-category text-racing-red" id="modal-category">FIA TELEMETRY CREDENTIAL</span>
+          <h3 class="modal-title" id="modal-title">Certification Preview</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="modal-close" aria-label="Close Certificate Preview">
+          <span>✕</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-image-container f1-modal-img-wrap">
+          <img id="modal-img" src="" alt="Certificate" class="modal-img">
+          <div id="modal-placeholder-preview" class="modal-placeholder-preview">
+            <div class="f1-seal-big">★ FIA ACCREDITATION ★</div>
+            <h4 id="modal-placeholder-title">Certification Document</h4>
+            <p>Official technical credential preview. You can upload your scanned image directly below or download this credential.</p>
+            <code id="modal-path-hint" class="modal-path-hint">assets/cert.jpg</code>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer-actions">
+          <label class="btn btn-telemetry-outline" id="modal-upload-btn-label">
+            <span>UPLOAD / REPLACE</span>
+            <input type="file" id="modal-cert-file-input" accept="image/*" class="sr-only">
+          </label>
+
+          <button type="button" class="btn btn-racing-primary" id="modal-download-cert-btn">
+            <span>DOWNLOAD CREDENTIAL</span>
+          </button>
+        </div>
+        <button type="button" class="btn btn-telemetry-outline" id="modal-close-bottom">CLOSE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Telemetry Inspection Modal -->
+  <div id="project-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="project-modal-title">
+    <div class="modal-overlay" id="project-modal-overlay"></div>
+    <div class="modal-dialog f1-card">
+      <div class="f1-card-accent-bracket top-left"></div>
+      <div class="f1-card-accent-bracket bottom-right"></div>
+
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-category text-cyan">GARAGE // CHASSIS INSPECTION</span>
+          <h3 class="modal-title" id="project-modal-title">Project Telemetry</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="project-modal-close" aria-label="Close Project Preview">
+          <span>✕</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="project-modal-desc" class="project-modal-description"></p>
+        <div class="project-modal-metrics">
+          <div class="metric-box">
+            <span class="metric-num text-racing-red">100%</span>
+            <span class="metric-lbl">OPERATIONAL</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-num text-cyan">&lt; 15ms</span>
+            <span class="metric-lbl">RESPONSE TIME</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-num text-amber">STABLE</span>
+            <span class="metric-lbl">PRODUCTION READY</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-racing-primary" id="project-modal-ok">CLOSE TELEMETRY</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- F1 Footer & Pit Wall Console Status -->
+  <footer class="footer f1-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-brand">CHARLES RICHARD O. SITU <span class="text-racing-red">// CAR #11</span></span>
+        <p class="footer-copyright">© 2026 Charles Richard O. Situ. All Rights Reserved. Engineered with F1 telemetry precision.</p>
+      </div>
+
+      <div class="footer-center">
+        <ul class="footer-nav">
+          <li><a href="#hero">S1: Hero</a></li>
+          <li><a href="#about">S2: Profile</a></li>
+          <li><a href="#skills">S3: Arsenal</a></li>
+          <li><a href="#projects">S4: Garage</a></li>
+          <li><a href="#credentials">S5: Credentials</a></li>
+          <li><a href="#contact">S6: Pit Wall</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-right">
+        <!-- Back to Top / Box Box Button -->
+        <a href="#hero" id="back-to-top" class="back-to-top-btn f1-btn-box" aria-label="Back to Pole Position" title="Return to Pole Position">
+          <span class="box-icon">▲</span>
+          <span class="back-to-top-text">BOX BOX // TOP</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button id="floating-back-to-top" class="floating-back-to-top f1-floating-top" aria-label="Back to top" title="Scroll to Pole Position">
+    <span>▲</span>
+  </button>
+
+  <!-- JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
